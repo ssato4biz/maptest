@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<!-- This stylesheet contains specific styles for displaying the map
+		 on this page. Replace it with your own styles as described in the
+		 documentation:
+		 https://developers.google.com/maps/documentation/javascript/tutorial -->
+	<link rel="stylesheet" href="https://developers.google.com/maps/documentation/javascript/demos/demos.css">
+	<style type="text/css">
+	div#map {
+		float: left;
+		width: 50%;
+	}
+	div#table {
+		float: left;
+		width: 50%;
+	}
+	div#table table{
+		width: 98%;
+		margin-left: auto;
+		margin-right: auto;
+		border-collapse: collapse;
+	}
+	div#table table td{
+		padding: 5px;
+		border: 1px solid #ccc;
+	}
+
+	</style>
+  </head>
+  <body>
+	<div>hoge</div>
+	<div id="container">
+		   <div id="map"></div>
+		   <div id="table"></div>
+	</div>
+	<script src="data.js" type="text/javascript"></script>
+	<script>
+	  function initMap() {
+		// Create a map object and specify the DOM element for display.
+		var map = new google.maps.Map(document.getElementById('map'), {
+		  center: {lat: 46.2363842, lng: 6.0818709},
+		  scrollwheel: false,
+		  zoom: 8
+		});
+		var html = "<table>";
+		var evPoiList = data.evStations.evStation;
+		for (var i = 0; i < evPoiList.length; i++) {
+			var poi = evPoiList[i];
+			console.log(poi);
+			var marker = new google.maps.Marker({
+				position: {lat: poi.position.latitude, lng: poi.position.longitude},
+				map: map,
+				title: poi.name
+			});
+			html += createRowHTML(i+1, poi);
+		}
+		html += "</table>";
+		document.getElementById("table").innerHTML = html;
+	  }
+
+	  function createRowHTML(i, poi) {
+		  var html = "";
+		  html += "<tr>";
+		  html += "<td>" + i + "</td>";
+		  html += "<td>" + poi.name + "</td>";
+		  html += "<td>" + poi.address.country + "</td>";
+		  html += "<td>" + poi.distance + "</td>";
+		  html += "</tr>";
+		  return html;
+	  }
+
+	  var url = "https://ev-v2.cit.cc.api.here.com/ev/stations.json?app_id=TNLM4BGXlhW2H4b0tSo2&app_code=uELJhNrqQPd0ObkI8Qrxbw&prox=46.2363842,6.0818709,100000&maxresults=100";
+
+
+	</script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7qVmqLdh17fZ8BPCDPQ2YnTNJPLt68I4&callback=initMap"
+	async defer></script>
+
+	</script>
+  </body>
+</html>
