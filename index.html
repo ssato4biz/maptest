@@ -65,11 +65,22 @@
 		  html += "<td>" + i + "</td>";
 		  html += "<td>" + poi.name + "</td>";
 		  html += "<td>" + poi.address.country + "</td>";
+		  html += "<td>" + createChargeInfoHTML(poi.connectors.connector) + "</td>";
 		  html += "<td>" + poi.distance + "</td>";
 		  html += "</tr>";
 		  return html;
 	  }
 
+	 function createChargeInfoHTML(connectors) {
+		  var html = "";
+                  for (var i = 0; i < connectors.length; i++) {
+			  conn = connectors[i];
+			  console.log(conn);
+			  html += conn.connectorType.name;
+			  html += "<br/>";
+		  }
+		  return html;
+	  }
 
 	</script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7qVmqLdh17fZ8BPCDPQ2YnTNJPLt68I4&callback=initMap"
